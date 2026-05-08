@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shoaib Aftab JS - Basic Usage Example</title>
+  <!-- Simulating inclusion of Shoaib Aftab CSS for styling -->
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 2rem; background: #f9fafb; color: #111827; }
+    .card { background: white; padding: 1.5rem; border-radius: 0.5rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); max-width: 400px; }
+    .btn { background: #3b82f6; color: white; border: none; padding: 0.5rem 1rem; border-radius: 0.25rem; cursor: pointer; }
+    .btn:hover { background: #2563eb; }
+    .hidden { display: none; }
+    .text-success { color: #16a34a; font-weight: bold; margin-top: 1rem; }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h2>Shoaib Aftab JS Demo</h2>
+    <p>Click the button to generate a unique ID and toggle a message using Shoaib Aftab JS.</p>
+
+    <button id="action-btn" class="btn">Generate ID</button>
+
+    <div id="result-box" class="hidden text-success">
+      ID: <span id="uuid-display"></span>
+    </div>
+  </div>
+
+  <!-- Include Shoaib Aftab JS -->
+  <script src="../dist/shoaib-aftab.min.js"></script>
+  <script>
+    // Wait for DOM
+    document.addEventListener('DOMContentLoaded', () => {
+
+      // 1. Select elements using SA.dom.$
+      const btn = SA.dom.$('#action-btn');
+      const resultBox = SA.dom.$('#result-box');
+      const display = SA.dom.$('#uuid-display');
+
+      // 2. Add event listener using SA.events.on
+      SA.events.on(btn, 'click', () => {
+        // 3. Use utility functions
+        const newId = SA.utilities.uuid();
+        display.textContent = newId;
+
+        // 4. Manipulate classes using SA.dom.removeClass
+        SA.dom.removeClass(resultBox, 'hidden');
+
+        console.log('Action performed. Capitalized text demo:', SA.string.capitalize('success'));
+      });
+
+    });
+  </script>
+</body>
+</html>
