@@ -1,6 +1,5 @@
 const fs = require('fs');
 const path = require('path');
-const { minify } = require('terser');
 
 const srcDir = path.join(__dirname, '../src');
 const modulesDir = path.join(srcDir, 'modules');
@@ -10,10 +9,22 @@ if (!fs.existsSync(distDir)) {
   fs.mkdirSync(distDir, { recursive: true });
 }
 
+// Custom Native JS Minifier (Zero Dependencies)
+function minifyJS(code) {
+  // A basic regex minifier. Caution: Not a full AST parser, 
+  // but sufficient for our zero-dependency standard.
+  return code
+    .replace(/\/\*[\s\S]*?\*\//g, '') // Remove multi-line comments
+    .replace(/\/\/.*$/gm, '')         // Remove single-line comments
+    .replace(/[\n\r\t]/g, '')         // Remove newlines and tabs
+    .replace(/\s{2,}/g, ' ')          // Remove multiple spaces
+    .trim();
+}
+
 async function build() {
-  let combinedJS = `/* Shoaib Aftab JS Framework v1.0.0 */\n\n`;
+  let combinedJS = `/* Shoaib Aftab JS Framework v2.0.0 */\n\n`;
   combinedJS += `var SA = (function() {\n`;
-  combinedJS += `  var _SA = {};\n\n`; // change internal name to avoid redeclaration with SA
+  combinedJS += `  var _SA = {};\n\n`;
 
   const moduleFiles = fs.readdirSync(modulesDir).filter(f => f.endsWith('.js'));
   for (const file of moduleFiles) {
@@ -41,9 +52,9 @@ async function build() {
   fs.writeFileSync(path.join(distDir, 'shoaib-aftab.js'), combinedJS);
 
   try {
-    const minified = await minify(combinedJS, { compress: true, mangle: true });
-    fs.writeFileSync(path.join(distDir, 'shoaib-aftab.min.js'), minified.code);
-    console.log('JS Build completed successfully!');
+    const minified = minifyJS(combinedJS);
+    fs.writeFileSync(path.join(distDir, 'shoaib-aftab.min.js'), `/* Shoaib Aftab JS Framework v2.0.0 | MIT License */\n` + minified);
+    console.log('JS Build completed successfully with native minifier!');
   } catch (error) {
     console.error('Error minifying JS:', error);
   }

@@ -3,51 +3,210 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shoaib Aftab JS - Basic Usage Example</title>
-  <!-- Simulating inclusion of Shoaib Aftab CSS for styling -->
+  <title>Shoaib Aftab JS - Premium Interactive Playground</title>
+  <!-- Load our own CSS framework -->
+  <link rel="stylesheet" href="../../shoaib-aftab-css/dist/shoaib-aftab.min.css">
+  <!-- Load our own Icons library -->
+  <link rel="stylesheet" href="../../shoaib-aftab-icons/dist/sa-icons.min.css">
+  <!-- Google Fonts for Shoaib Aftab Tech Theme -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
   <style>
-    body { font-family: system-ui, sans-serif; padding: 2rem; background: #f9fafb; color: #111827; }
-    .card { background: white; padding: 1.5rem; border-radius: 0.5rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); max-width: 400px; }
-    .btn { background: #3b82f6; color: white; border: none; padding: 0.5rem 1rem; border-radius: 0.25rem; cursor: pointer; }
-    .btn:hover { background: #2563eb; }
-    .hidden { display: none; }
-    .text-success { color: #16a34a; font-weight: bold; margin-top: 1rem; }
+    :root {
+      /* Brand Identity variables mapping */
+      --sa-font-sans: 'Roboto', sans-serif;
+      --sa-font-heading: 'Poppins', sans-serif;
+      
+      --sa-color-primary-50: #eff6ff;
+      --sa-color-primary-100: #dbeafe;
+      --sa-color-primary-500: #4a90e2; /* Soft secondary blue */
+      --sa-color-primary-600: #0a1628; /* Deep primary navy */
+      --sa-color-primary-700: #070f1b;
+      
+      --sa-color-accent-50: #eefdf4;
+      --sa-color-accent-500: #77f9a0; /* Bright mint green */
+      --sa-color-accent-600: #57df81;
+      
+      /* Active font mappings */
+      --sa-font-primary: var(--sa-font-sans);
+      --sa-font-heading: var(--sa-font-heading);
+    }
   </style>
 </head>
-<body>
+<body class="sa-bg-gray-100 sa-font-primary sa-text-primary-600 sa-py-12 sa-px-6">
 
-  <div class="card">
-    <h2>Shoaib Aftab JS Demo</h2>
-    <p>Click the button to generate a unique ID and toggle a message using Shoaib Aftab JS.</p>
+  <div class="sa-container sa-max-w-2xl sa-mx-auto">
+    
+    <!-- Header -->
+    <header class="sa-card sa-p-6 sa-mb-8 sa-shadow-md sa-bg-white sa-border sa-border-gray-200">
+      <div class="sa-flex sa-items-center sa-justify-between sa-gap-4">
+        <div class="sa-flex sa-items-center sa-gap-3">
+          <div class="sa-badge sa-badge-accent sa-p-3 sa-rounded-lg">
+            <i class="sa-icon sa-i-terminal sa-text-accent-600 sa-i-lg"></i>
+          </div>
+          <div>
+            <h1 class="sa-text-2xl sa-font-bold sa-text-accent-600 sa-mb-1">Shoaib Aftab JS</h1>
+            <p class="sa-text-gray-500 sa-text-xs sa-font-medium">Pure Vanilla JavaScript Framework | 100% Zero-Dependency</p>
+          </div>
+        </div>
+        <span class="sa-badge sa-badge-accent sa-font-mono sa-px-3 sa-py-1">v2.0.0</span>
+      </div>
+    </header>
 
-    <button id="action-btn" class="btn">Generate ID</button>
+    <!-- Main Workspace Card -->
+    <main class="sa-card sa-shadow-lg sa-bg-white sa-mb-8 sa-border sa-border-gray-200">
+      <div class="sa-card-header sa-flex sa-justify-between sa-items-center sa-pb-4 sa-border-b sa-border-gray-100">
+        <h2 class="sa-font-bold sa-text-lg sa-text-gray-800 sa-flex sa-items-center sa-gap-2">
+          <i class="sa-icon sa-i-play_arrow sa-text-primary-600"></i> Active Playground
+        </h2>
+        <button id="modal-trigger-btn" class="sa-btn sa-btn-accent sa-btn-sm sa-flex sa-items-center sa-gap-2">
+          <i class="sa-icon sa-i-info sa-i-sm"></i> Framework Info
+        </button>
+      </div>
 
-    <div id="result-box" class="hidden text-success">
-      ID: <span id="uuid-display"></span>
+      <div class="sa-card-body sa-p-6">
+        
+        <!-- Feature 1: ID Generation -->
+        <section class="sa-mb-8">
+          <h3 class="sa-font-bold sa-text-sm sa-text-gray-700 sa-mb-3">1. Programmatic UUID Generation</h3>
+          <p class="sa-text-gray-500 sa-text-xs sa-mb-4">Click the button below to dynamically invoke SA utilities and generate a unique tracking ID.</p>
+          <div class="sa-flex sa-items-center sa-gap-4">
+            <button id="action-btn" class="sa-btn sa-btn-primary sa-flex sa-items-center sa-gap-2">
+              <i class="sa-icon sa-i-key"></i> Generate unique ID
+            </button>
+            <div id="result-box" class="sa-hidden sa-bg-success-50 sa-border sa-border-success-500 sa-p-3 sa-rounded-md sa-flex sa-items-center sa-gap-3">
+              <i class="sa-icon sa-i-check sa-text-success-600 sa-i-sm"></i>
+              <span class="sa-font-mono sa-text-xs sa-text-success-700 sa-font-bold" id="uuid-display"></span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Feature 2: Reactive Binding -->
+        <section class="sa-mb-8 sa-pb-6 sa-border-b sa-border-gray-100">
+          <h3 class="sa-font-bold sa-text-sm sa-text-gray-700 sa-mb-3">2. Auto-Reactive Form Binding</h3>
+          <p class="sa-text-gray-500 sa-text-xs sa-mb-4">Type in the box below to observe a two-way reactive state proxy updating the DOM instantaneously.</p>
+          <div class="sa-flex sa-flex-col sa-gap-3">
+            <label class="sa-text-xs sa-font-bold sa-text-gray-500">Enter Developer Name:</label>
+            <input type="text" id="reactive-input" class="sa-input" placeholder="Start typing here...">
+            <div id="hello-container" class="sa-hidden sa-bg-gray-50 sa-p-3 sa-rounded-md sa-border sa-border-gray-200">
+              <span id="hello-msg" class="sa-font-bold sa-text-sm sa-text-primary-600"></span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Feature 3: Clipboard Copying Mockup (Stage 3 Requirement) -->
+        <section>
+          <div class="sa-flex sa-items-center sa-justify-between sa-mb-3">
+            <h3 class="sa-font-bold sa-text-sm sa-text-gray-700">3. Interactive Developer Code Blocks</h3>
+            <!-- Clipboard Copy Button -->
+            <button id="copy-code-btn" class="sa-btn sa-btn-outline sa-btn-xs sa-flex sa-items-center sa-gap-2 sa-tooltip" data-tip="Copy block">
+              <i id="copy-btn-icon" class="sa-icon sa-i-content_copy sa-i-sm"></i> <span id="copy-btn-text">Copy code</span>
+            </button>
+          </div>
+          <div class="sa-relative">
+            <pre class="sa-bg-gray-900 sa-text-gray-300 sa-p-4 sa-rounded-lg sa-font-mono sa-text-xs sa-overflow-x-auto"><code id="code-snippet">const SA = {
+  version: '2.0.0',
+  uuid: SA.utilities.uuid(),
+  copy: SA.clipboard.copy(text)
+};</code></pre>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+  </div>
+
+  <!-- Framework Info modal overlay (Demonstrating Modal controller) -->
+  <div id="info-modal" class="sa-modal">
+    <div class="sa-modal-box">
+      <div class="sa-flex sa-items-center sa-gap-3 sa-mb-4">
+        <div class="sa-badge sa-badge-accent sa-p-3">
+          <i class="sa-icon sa-i-info sa-text-accent-600"></i>
+        </div>
+        <h3 class="sa-text-lg sa-font-bold sa-text-gray-800">Framework Overview</h3>
+      </div>
+      <p class="sa-text-gray-500 sa-text-sm sa-mb-4">
+        Shoaib Aftab JS provides over 15 dynamic modules including reactive state management, AJAX interfaces, cookie controllers, and dynamic system styling helpers.
+      </p>
+      <div class="sa-modal-action">
+        <button id="close-modal-btn" class="sa-btn sa-btn-secondary">Close Dialog</button>
+      </div>
     </div>
   </div>
 
   <!-- Include Shoaib Aftab JS -->
   <script src="../dist/shoaib-aftab.min.js"></script>
   <script>
-    // Wait for DOM
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof SA === 'undefined') {
+        console.error("Framework not loaded successfully.");
+        return;
+      }
 
-      // 1. Select elements using SA.dom.$
-      const btn = SA.dom.$('#action-btn');
-      const resultBox = SA.dom.$('#result-box');
-      const display = SA.dom.$('#uuid-display');
+      // Initialize Theme Manager
+      SA.theme.init();
 
-      // 2. Add event listener using SA.events.on
-      SA.events.on(btn, 'click', () => {
-        // 3. Use utility functions
-        const newId = SA.utilities.uuid();
+      // 1. Select elements
+      var btn = SA.dom.$('#action-btn');
+      var resultBox = SA.dom.$('#result-box');
+      var display = SA.dom.$('#uuid-display');
+      var modalTrigger = SA.dom.$('#modal-trigger-btn');
+      var closeModal = SA.dom.$('#close-modal-btn');
+      var copyBtn = SA.dom.$('#copy-code-btn');
+      var copyIcon = SA.dom.$('#copy-btn-icon');
+      var copyText = SA.dom.$('#copy-btn-text');
+      var codeSnippet = SA.dom.$('#code-snippet');
+
+      // 2. ID Generation Trigger
+      SA.events.on(btn, 'click', function() {
+        var newId = SA.utilities.uuid();
         display.textContent = newId;
+        SA.dom.removeClass(resultBox, 'sa-hidden');
+      });
 
-        // 4. Manipulate classes using SA.dom.removeClass
-        SA.dom.removeClass(resultBox, 'hidden');
+      // 3. Modal Toggles
+      SA.events.on(modalTrigger, 'click', function() {
+        SA.modal.open('info-modal');
+      });
+      SA.events.on(closeModal, 'click', function() {
+        SA.modal.close('info-modal');
+      });
+      SA.modal.bindBackdrop('info-modal');
 
-        console.log('Action performed. Capitalized text demo:', SA.string.capitalize('success'));
+      // 4. Reactive State Binding
+      var helloContainer = SA.dom.$('#hello-container');
+      var helloMsg = SA.dom.$('#hello-msg');
+      var cardState = SA.framework.createState({ name: '' }, function(state, key, val) {
+        if (val) {
+          helloMsg.textContent = 'Hello, ' + val + '! Welcome to the ecosystem.';
+          SA.dom.removeClass(helloContainer, 'sa-hidden');
+        } else {
+          SA.dom.addClass(helloContainer, 'sa-hidden');
+        }
+      });
+      SA.framework.bindInput('reactive-input', cardState, 'name');
+
+      // 5. Interactive Copy Code Block Feature (Stage 3)
+      SA.events.on(copyBtn, 'click', function() {
+        var textToCopy = codeSnippet.textContent;
+        SA.clipboard.copy(textToCopy).then(function() {
+          // Success Feedback
+          SA.dom.removeClass(copyIcon, 'sa-i-content_copy');
+          SA.dom.addClass(copyIcon, 'sa-i-check');
+          SA.dom.addClass(copyIcon, 'sa-text-success-500');
+          copyText.textContent = 'Copied!';
+          copyBtn.setAttribute('data-tip', 'Copied successfully!');
+
+          setTimeout(function() {
+            SA.dom.removeClass(copyIcon, 'sa-i-check');
+            SA.dom.removeClass(copyIcon, 'sa-text-success-500');
+            SA.dom.addClass(copyIcon, 'sa-i-content_copy');
+            copyText.textContent = 'Copy code';
+            copyBtn.setAttribute('data-tip', 'Copy block');
+          }, 1500);
+        }).catch(function(err) {
+          console.error("Copy failed:", err);
+        });
       });
 
     });

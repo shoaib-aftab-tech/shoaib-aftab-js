@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shoaib Aftab JS - Enterprise Demo</title>
+    <!-- Using the companion CSS framework for enterprise styling -->
+    <link rel="stylesheet" href="../../shoaib-aftab-css/dist/shoaib-aftab.min.css">
+</head>
+<body class="sa-bg-neutral-900 sa-text-white sa-font-primary sa-antialiased">
+
+    <!-- SPA Navigation -->
+    <header class="sa-bg-black sa-border-b sa-border-white/10 sa-sticky sa-top-0 sa-z-50">
+        <div class="sa-container sa-py-4 sa-flex sa-justify-between sa-items-center">
+            <div class="sa-font-heading sa-font-bold sa-text-xl sa-text-transparent sa-bg-clip-text sa-bg-gradient-to-r sa-from-white sa-to-gray-500">
+                Shoaib Aftab JS
+            </div>
+            <nav class="sa-flex sa-gap-4">
+                <a sa-route="/" class="sa-px-4 sa-py-2 sa-rounded-lg sa-text-sm sa-font-medium hover:sa-bg-white/10 sa-transition-colors sa-cursor-pointer">Reactivity</a>
+                <a sa-route="/security" class="sa-px-4 sa-py-2 sa-rounded-lg sa-text-sm sa-font-medium hover:sa-bg-white/10 sa-transition-colors sa-cursor-pointer">Security</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- SPA View Container (Pages inject here) -->
+    <main sa-view class="sa-container sa-py-12 sa-min-h-dvh"></main>
+
+    <!-- JS Framework Import -->
+    <script src="../dist/shoaib-aftab.min.js"></script>
+
+    <script>
+        // 1. Initialize State
+        const globalState = SA.Store.createState({
+            user: {
+                name: "Developer",
+                role: "Admin"
+            },
+            counter: 0,
+            maliciousPayload: "<img src='x' onerror='alert(\"XSS Attack\")'><b>Safe Bold Text</b>",
+            isVisible: true
+        });
+
+        // Define Pages for the SPA Router
+        const pages = {
+            '/': `
+                <div class="sa-animate-scroll-fade">
+                    <h1 class="sa-text-4xl sa-font-bold sa-mb-8">Deep Reactivity Engine</h1>
+                    
+                    <div class="sa-grid md:sa-grid-cols-2 sa-gap-8">
+                        <div class="sa-glass sa-p-8 sa-rounded-2xl sa-border sa-border-white/10">
+                            <h2 class="sa-text-2xl sa-font-semibold sa-mb-4">Two-Way Binding</h2>
+                            <label class="sa-block sa-text-sm sa-text-gray-400 sa-mb-2">Update Name:</label>
+                            <input type="text" sa-model="user.name" class="sa-w-full sa-bg-black/50 sa-border sa-border-white/20 sa-rounded-lg sa-p-3 sa-text-white sa-mb-4 focus:sa-border-primary-500 sa-outline-none">
+                            
+                            <p class="sa-text-lg">Live Preview: <span sa-text="user.name" class="sa-text-primary-400 sa-font-bold"></span></p>
+                        </div>
+
+                        <div class="sa-glass sa-p-8 sa-rounded-2xl sa-border sa-border-white/10">
+                            <h2 class="sa-text-2xl sa-font-semibold sa-mb-4">State Batching & Microtasks</h2>
+                            <p class="sa-text-6xl sa-font-bold sa-mb-6 sa-text-center" sa-text="counter"></p>
+                            <div class="sa-flex sa-gap-4 sa-justify-center">
+                                <button onclick="globalState.counter--" class="sa-bg-white/10 sa-px-6 sa-py-3 sa-rounded-xl hover:sa-bg-white/20">- Decrement</button>
+                                <button onclick="globalState.counter++" class="sa-bg-white sa-text-black sa-px-6 sa-py-3 sa-rounded-xl sa-font-bold hover:sa-scale-105 sa-transition-transform">+ Increment</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `,
+            '/security': `
+                <div class="sa-animate-scroll-fade">
+                    <h1 class="sa-text-4xl sa-font-bold sa-mb-8">Enterprise Security</h1>
+                    
+                    <div class="sa-glass sa-p-8 sa-rounded-2xl sa-border sa-border-red-500/30 sa-relative sa-overflow-hidden">
+                        <div class="sa-absolute sa-top-0 sa-left-0 sa-w-full sa-h-1 sa-bg-red-500"></div>
+                        <h2 class="sa-text-2xl sa-font-semibold sa-mb-4 sa-text-red-400">Advanced DOM Sanitizer</h2>
+                        <p class="sa-text-gray-400 sa-mb-4">We injected a malicious payload containing an XSS attack vector via image onerror. The framework automatically neutralizes it:</p>
+                        
+                        <div class="sa-bg-black sa-p-4 sa-rounded-lg sa-mb-4 sa-font-mono sa-text-sm sa-text-red-300">
+                            Raw Payload: &lt;img src='x' onerror='alert("XSS Attack")'&gt;&lt;b&gt;Safe Bold Text&lt;/b&gt;
+                        </div>
+
+                        <div class="sa-bg-neutral-800 sa-p-6 sa-rounded-lg sa-border sa-border-white/5">
+                            <p class="sa-text-sm sa-text-gray-500 sa-mb-2">Sanitized Render Output:</p>
+                            <div sa-html="maliciousPayload" class="sa-text-lg"></div>
+                        </div>
+                    </div>
+                </div>
+            `
+        };
+
+        // 2. Initialize Router
+        SA.Router.initRouter(pages);
+
+        // 3. Initialize Reactivity on the document
+        SA.Store.initReactivity(document.body, globalState);
+
+        // Automatically bind whenever route changes
+        window.addEventListener('sa-route-changed', () => {
+            SA.Store.initReactivity(document.querySelector('[sa-view]'), globalState);
+        });
+
+    </script>
+</body>
+</html>

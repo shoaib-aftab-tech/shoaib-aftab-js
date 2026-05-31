@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation - Shoaib Aftab JS Ecosystem</title>
+    <link rel="stylesheet" href="../../shoaib-aftab-css/dist/shoaib-aftab.min.css">
+</head>
+<body class="sa-bg-neutral-50 sa-text-neutral-900 sa-font-primary sa-antialiased">
+
+    <!-- Header -->
+    <header class="sa-bg-white sa-border-b sa-border-neutral-200 sa-sticky sa-top-0 sa-z-50">
+        <div class="sa-container sa-py-4 sa-flex sa-justify-between sa-items-center">
+            <div class="sa-font-heading sa-font-bold sa-text-2xl sa-text-primary-600">Shoaib Aftab JS</div>
+            <nav class="sa-flex sa-gap-6">
+                <a href="#getting-started" class="sa-font-semibold hover:sa-text-primary-500">Getting Started</a>
+                <a href="#reactivity" class="sa-font-semibold hover:sa-text-primary-500">Reactivity</a>
+                <a href="#routing" class="sa-font-semibold hover:sa-text-primary-500">SPA Routing</a>
+                <a href="#security" class="sa-font-semibold hover:sa-text-primary-500">Security</a>
+                <a href="../examples/index.html" class="sa-bg-primary-600 sa-text-white sa-px-4 sa-py-2 sa-rounded-md hover:sa-bg-primary-700">View Live Demo</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="sa-container sa-py-12 sa-grid sa-grid-cols-1 md:sa-grid-cols-4 sa-gap-8">
+        
+        <!-- Sidebar -->
+        <aside class="md:sa-col-span-1 sa-sticky sa-top-24 sa-self-start">
+            <h3 class="sa-font-bold sa-text-lg sa-mb-4 sa-uppercase sa-tracking-widest sa-text-neutral-500">Core Concepts</h3>
+            <ul class="sa-space-y-3 sa-mb-8">
+                <li><a href="#getting-started" class="sa-text-neutral-600 hover:sa-text-primary-600">Installation</a></li>
+                <li><a href="#zero-dependency" class="sa-text-neutral-600 hover:sa-text-primary-600">Zero Dependency</a></li>
+            </ul>
+
+            <h3 class="sa-font-bold sa-text-lg sa-mb-4 sa-uppercase sa-tracking-widest sa-text-neutral-500">API Reference</h3>
+            <ul class="sa-space-y-3">
+                <li><a href="#reactivity" class="sa-text-neutral-600 hover:sa-text-primary-600">Store & Reactivity</a></li>
+                <li><a href="#routing" class="sa-text-neutral-600 hover:sa-text-primary-600">Router</a></li>
+                <li><a href="#security" class="sa-text-neutral-600 hover:sa-text-primary-600">DOM Sanitization</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="md:sa-col-span-3 sa-prose sa-max-w-none">
+            
+            <section id="getting-started" class="sa-mb-16">
+                <h1 class="sa-text-5xl sa-font-bold sa-mb-6">Getting Started</h1>
+                <p class="sa-text-lg sa-text-neutral-600 sa-mb-6">
+                    Welcome to the official documentation for the Shoaib Aftab JS Framework. This framework provides Vue/React-like reactivity, SPA routing, and enterprise-grade DOM sanitization, all in a single, zero-dependency file.
+                </p>
+                <div class="sa-bg-neutral-800 sa-text-white sa-p-6 sa-rounded-xl sa-font-code sa-text-sm">
+                    <code>&lt;script src="path/to/shoaib-aftab.min.js"&gt;&lt;/script&gt;</code>
+                </div>
+            </section>
+
+            <section id="reactivity" class="sa-mb-16">
+                <h2 class="sa-text-3xl sa-font-bold sa-mb-4">Deep Proxy Reactivity Engine</h2>
+                <p class="sa-text-neutral-600 sa-mb-4">
+                    The framework uses native JavaScript <code>Proxy</code> to intercept changes to your state object. When a property changes, the framework uses <code>queueMicrotask</code> to batch updates, ensuring maximum performance without layout thrashing.
+                </p>
+                <div class="sa-bg-neutral-800 sa-text-white sa-p-6 sa-rounded-xl sa-font-code sa-text-sm sa-mb-4">
+<pre><code>const state = SA.Store.createState({
+    user: { name: 'Shoaib' }
+});
+
+// Bind state to the DOM
+SA.Store.initReactivity(document.body, state);
+</code></pre>
+                </div>
+                <p class="sa-text-neutral-600">Now, any HTML element with <code>sa-text="user.name"</code> or <code>sa-model="user.name"</code> will automatically sync with the state!</p>
+            </section>
+
+            <section id="routing" class="sa-mb-16">
+                <h2 class="sa-text-3xl sa-font-bold sa-mb-4">Zero-Dependency SPA Routing</h2>
+                <p class="sa-text-neutral-600 sa-mb-6">
+                    Build lightning-fast Single Page Applications using the native HTML5 History API. No page reloads required.
+                </p>
+                <div class="sa-bg-neutral-800 sa-text-white sa-p-6 sa-rounded-xl sa-font-code sa-text-sm">
+<pre><code>// Define your routes
+const routes = {
+    '/': '&lt;h1&gt;Home Page&lt;/h1&gt;',
+    '/about': '&lt;h1&gt;About Us&lt;/h1&gt;'
+};
+
+// Initialize Router
+SA.Router.initRouter(routes);
+</code></pre>
+                </div>
+                <p class="sa-text-neutral-600 sa-mt-4">Simply use <code>&lt;a sa-route="/about"&gt;</code> for navigation and <code>&lt;div sa-view&gt;&lt;/div&gt;</code> as your injection container.</p>
+            </section>
+
+            <section id="security" class="sa-mb-16">
+                <h2 class="sa-text-3xl sa-font-bold sa-mb-4">Enterprise Security (DOM Sanitizer)</h2>
+                <p class="sa-text-neutral-600 sa-mb-6">
+                    If you use <code>sa-html="property"</code>, the framework automatically sanitizes the HTML string before injecting it into the DOM. It strips out <code>&lt;script&gt;</code>, <code>&lt;svg&gt;</code>, <code>&lt;math&gt;</code>, and neutralizes <code>onerror</code> or <code>javascript:</code> payload attributes to protect your users from Cross-Site Scripting (XSS).
+                </p>
+                <p class="sa-text-neutral-600 sa-mb-6">
+                    Furthermore, the internal path resolver strictly blocks Prototype Pollution attacks by rejecting keys like <code>__proto__</code> or <code>constructor</code>.
+                </p>
+            </section>
+
+        </main>
+    </div>
+
+    <footer class="sa-bg-neutral-900 sa-text-white sa-py-8 sa-mt-24">
+        <div class="sa-container sa-text-center">
+            <p>&copy; 2024-2026 Shoaib Aftab Tech. Built for the Enterprise.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
