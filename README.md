@@ -3,7 +3,7 @@
     <img src="https://shoaibaftab.com/images/logo.png" alt="Shoaib Aftab Tech Logo" width="300">
   </a>
   <br><br>
-  <h1>🚀 Shoaib Aftab JS Ecosystem (V2)</h1>
+  <h1>🚀 Shoaib Aftab JS Framework (V2)</h1>
   <p><strong>The Ultimate, 0-Dependency, Ultra-Secure, Enterprise JavaScript Framework</strong></p>
   
   <p>
